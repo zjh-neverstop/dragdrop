@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-Type" content="charset=utf-8"/>
+		<title>拖动示例</title>
+		<style type="text/css">
+			input {
+				height: 26px;
+				margin-top: 7px;
+				width: 50px;
+				cursor: pointer;
+				border: solid 1px lightgray;
+				border-radius: 5px;
+				background-color: gainsboro;
+			}
+			#dialog{
+				width: 400px;
+				height: 300px;
+				position:absolute;
+				border: solid 1px lightgray;
+				background-color: aliceblue;
+				top:50px;
+				left:280px;
+			}
+			#dialog1{
+				width: 400px;
+				height: 300px;
+				position:absolute;
+				border: solid 1px lightgray;
+				background-color: aliceblue;
+				top:390px;
+				left:280px;
+			}
+			.title {
+				height: 30px;
+				background-color: darkgray;
+				margin: 1px;
+				cursor:move;
+			}
+
+		</style>
+		<script type="text/javascript"></script>
+		<script type="text/javascript"></script>
+		<script type="text/javascript" src="Utils/EventTarget.js"></script>
+		<script type="text/javascript" src="Utils/EventUtil.js"></script>
+		<script type="text/javascript" src="dragdrop.js"></script>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<input type="button" id="btn_enable" onclick="dragdrop.enable();" style="width:100px" value="开启拖动"/>
+			<input type="button" id="btn_disable" onclick="dragdrop.disable();" style="width:100px" value="禁止拖动"/>
+		</div>
+		
+		<div id="status" style="height:400px;width:260px;border:solid 1px lightgray;overflow-y:scroll;margin-top:10px;">
+			
+		</div>
+		<div id="dialog" class="draggable">
+			<div id="title" class="title"></div>
+			<div id="content" style="height: 228px;">
+				dialog1
+			</div>
+			<div id="bottom" style="height: 39px;background-color: whitesmoke;border-top: solid 1px lightgray;position: relative;">
+				  <input id="btn_confirm" value="确定" type="button" style="position: absolute;right: 80px;">
+				  <input id="btn_cancel" value="取消" type="button" style="position: absolute; right: 20px;">
+			</div>
+		</div>
+		<div id="dialog1" class="draggable">
+			<div id="title1" class="title"></div>
+			<div id="content1" style="height: 228px;">
+				dialog2
+			</div>
+			<div id="bottom1" style="height: 39px;background-color: whitesmoke;border-top: solid 1px lightgray;position: relative;">
+				  <input id="btn_confirm1" value="确定" type="button" style="position: absolute;right: 80px;">
+				  <input id="btn_cancel1" value="取消" type="button" style="position: absolute; right: 20px;">
+			</div>
+		</div>
+		<script type="text/javascript">
+			var curStatus = document.getElementById('status');
+			//设置响应元素与拖动元素
+			dragdrop.addPair(document.getElementById("title"),document.getElementById("dialog"));
+			dragdrop.addPair(document.getElementById("title1"),document.getElementById("dialog1"));
+			//开启拖动
+			dragdrop.enable();
+
+			//定义拖动事件响应方法
+			dragdrop.onDragStart(function(info){
+				curStatus.innerHTML = "start dragging......";
+			});
+			dragdrop.onDragging(function(info){
+				curStatus.innerHTML += "<br/>current position:"+info.x+", "+info.y;
+			});
+			dragdrop.onDragEng(function(info){
+				curStatus.innerHTML += "<br/>dropped at:"+info.x+", "+info.y;
+			});
+		</script>
+	</body>
+</html>
