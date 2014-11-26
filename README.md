@@ -13,22 +13,21 @@ js: `dragdrop.enable();`
 示例二:
 ```
 html:
-<div id="dialog1" class="draggable">    
-    <div id="title1" class="title"></div>    
-    <div id="content1" style="height: 228px;">    
+<div id="dialog" class="draggable">    
+    <div id="title" class="title"></div>    
+    <div id="content" style="height: 228px;">    
         dialog2    
     </div>    
-    <div id="bottom1" style="height: 39px;background-color: whitesmoke;border-top: solid 1px lightgray;position:relative;">     
-        <input id="btn_confirm1" value="确定" type="button" style="position: absolute;right: 80px;">    
-        <input id="btn_cancel1" value="取消" type="button" style="position: absolute; right: 20px;">    
+    <div id="bottom" style="height: 39px;background-color: whitesmoke;border-top: solid 1px lightgray;position:relative;">     
+        <input id="btn_confirm" value="确定" type="button" style="position: absolute;right: 80px;">    
+        <input id="btn_cancel" value="取消" type="button" style="position: absolute; right: 20px;">    
     </div>     
 </div>
 ```
 ```
 js:  
 //设置响应元素与拖动元素        
-dragdrop.addPair(document.getElementById("title"),document.getElementById("dialog"));
-dragdrop.addPair(document.getElementById("title1"),document.getElementById("dialog1"));    
+dragdrop.addPair(document.getElementById("title"),document.getElementById("dialog"));   
 //开启拖动        
 dragdrop.enable();
 ```    
