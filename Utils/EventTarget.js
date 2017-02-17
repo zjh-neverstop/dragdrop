@@ -13,14 +13,14 @@ EventTarget.prototype = {
         this.handlers[type].push(handler);
     },
     
-    fire: function(event){
-        if (!event.target){
-            event.target = this;
-        }
-        if (this.handlers[event.type] instanceof Array){
-            var handlers = this.handlers[event.type];
+    fire: function(eventArgs){
+        /*if (!eventArgs.target){
+            eventArgs.target = this;
+        }*/
+        if (this.handlers[eventArgs.type] instanceof Array){
+            var handlers = this.handlers[eventArgs.type];
             for (var i=0, len=handlers.length; i < len; i++){
-                handlers[i](event);
+                handlers[i](eventArgs);
             }
         }            
     },

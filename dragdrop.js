@@ -56,13 +56,14 @@
 			return pair.length>0?pair[0]:null;
 		}
 
+		var resTarget = null;
+		var dragTarget = null;
+
 		//事件处理
 		function handleEvent(event){
 
 			event = EventUtil.getEvent(event);
 			var eventTarget = EventUtil.getTarget(event);
-			var resTarget = null;
-			var dragTarget = null;
 
 			switch(event.type){
 				case "mousedown":
@@ -125,18 +126,24 @@
 			}
 		};
 
+		// 事件处理的封装，函数节流
+		function handlerWrap(event){
+			throttle(event,handleEvent);
+		}
+
 
 		return {
 			enable:function(){
 				EventUtil.addHandler(document,"mousedown",handleEvent);
 				//函数节流写法
-				//EventUtil.addHandler(document,"mousemove",function(event){throttle(event,handleEvent);});
-				EventUtil.addHandler(document,"mousemove",handleEvent);
+				EventUtil.addHandler(document,"mousemove",handlerWrap);
+				//EventUtil.addHandler(document,"mousemove",handleEvent);
 				EventUtil.addHandler(document,"mouseup",handleEvent);
 			},
 			disable:function(){
 				EventUtil.removeHandler(document,"mousedown",handleEvent);
-				EventUtil.removeHandler(document,"mousemove",handleEvent);
+				EventUtil.removeHandler(document,"mousemove",handlerWrap);
+				//EventUtil.removeHandler(document,"mousemove",handleEvent);
 				EventUtil.removeHandler(document,"mouseup",handleEvent);
 			},
 			onDragStart:function(handler){
